@@ -104,6 +104,84 @@ class Harita(QDialog):
         vbox.addWidget(self.lbl)
         self.setLayout(vbox)
 
+# İstatistikler Dialogu
+class StatsEkran(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setGeometry(100,100,300,200)
+        self.setWindowTitle("İstatistikler")
+        self.initUI()
+
+    def initUI(self):
+        # Widget Alanı
+        self.lblIsim = QLabel("İsim: ")
+        self.isimAlani = QLineEdit()
+        self.isimAlani.setReadOnly(True)
+        self.isimAlani.setText(karakter1.isim)
+        self.lblZeka = QLabel("Zeka: ")
+        self.zekaAlani = QLineEdit()
+        self.zekaAlani.setReadOnly(True)
+        self.zekaAlani.setText(str(karakter1.zeka))
+        self.lblKarizma = QLabel("Karizma: ")
+        self.karizmaAlani = QLineEdit()
+        self.karizmaAlani.setReadOnly(True)
+        self.karizmaAlani.setText(str(karakter1.karizma))
+        self.lblIletisim = QLabel("İletişim: ")
+        self.iletisimALani = QLineEdit()
+        self.iletisimALani.setReadOnly(True)
+        self.iletisimALani.setText(str(karakter1.iletisim))
+        self.lblDp = QLabel("Diktator Puanı: ")
+        self.DpAlan = QLineEdit()
+        self.DpAlan.setReadOnly(True)
+        self.DpAlan.setText(str(karakter1.diktator_puani))
+        self.lblMemleket = QLabel("Memleket: ")
+        self.memleketAlani = QLineEdit()
+        self.memleketAlani.setReadOnly(True)
+        self.memleketAlani.setText(karakter1.memleket)
+
+
+        isimHBox = QHBoxLayout()
+        isimHBox.addWidget(self.lblIsim)
+        isimHBox.addWidget(self.isimAlani)
+
+        zekaHbox = QHBoxLayout()
+        zekaHbox.addWidget(self.lblZeka)
+        zekaHbox.addWidget(self.zekaAlani)
+
+        karizmaHbox = QHBoxLayout()
+        karizmaHbox.addWidget(self.lblKarizma)
+        karizmaHbox.addWidget(self.karizmaAlani)
+
+        iletisimHbox = QHBoxLayout()
+        iletisimHbox.addWidget(self.lblIletisim)
+        iletisimHbox.addWidget(self.iletisimALani)
+
+        dpHbox = QHBoxLayout()
+        dpHbox.addWidget(self.lblDp)
+        dpHbox.addWidget(self.DpAlan)
+
+        memleketHBox = QHBoxLayout()
+        memleketHBox.addWidget(self.lblMemleket)
+        memleketHBox.addWidget(self.memleketAlani)
+
+        vbox = QVBoxLayout()
+        vbox.addLayout(isimHBox)
+        vbox.addLayout(zekaHbox)
+        vbox.addLayout(karizmaHbox)
+        vbox.addLayout(iletisimHbox)
+        vbox.addLayout(dpHbox)
+        vbox.addLayout(memleketHBox)
+        
+        mainbox = QHBoxLayout()
+        mainbox.addLayout(vbox)
+        mainbox.addStretch(1)
+
+        self.setLayout(mainbox)
+
+
+
+        
+
 
 class AnaEkran(QWidget):
     def __init__(self):
@@ -118,6 +196,7 @@ class AnaEkran(QWidget):
 
         # Widget alanı
         self.btnStats = QPushButton("İstatistikler")
+        self.btnStats.clicked.connect(self.actStats)
         self.btnHarita = QPushButton("Harita")
         self.btnHarita.clicked.connect(self.actHarita)
         self.btnKaydet = QPushButton("Kaydet")
@@ -165,11 +244,16 @@ class AnaEkran(QWidget):
         if self.hikayeSayaci == 2:
             karakter_olusturma = KarakterOlusturmaDialog()
             karakter_olusturma.exec_()
+        
 
     # Harita Butonunun Fonksiyonu
     def actHarita(self):
         harita = Harita()
         harita.exec_()
+
+    def actStats(self):
+        stats = StatsEkran()
+        stats.exec_()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
