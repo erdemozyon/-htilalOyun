@@ -16,6 +16,29 @@ class Karakter:
 # Karakter Tanımlandı
 karakter1 = Karakter("",0,0,0,0,"")
 
+
+
+class AnketlerEkrani(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setGeometry(10,10,700,300)
+        self.setWindowTitle("Anketler")
+        self.initUI()
+
+    def initUI(self):
+        self.lblXuna = QLabel("Xuna: ")
+        self.lblArigma = QLabel("Arigma: ")
+        self.lblSora = QLabel("Sora: ")
+        self.XunaAnketAlani = QLineEdit()
+        self.XunaAnketAlani.setReadOnly(True)
+        self.ArigmaAnketAlani = QLineEdit()
+        self.ArigmaAnketAlani.setReadOnly(True)
+        self.SoraAnketAlani = QLineEdit()
+        self.SoraAnketAlani.setReadOnly(True)
+        
+        
+
+
 # Karakter Oluşturma Ekranı
 class KarakterOlusturmaDialog(QDialog):
     def __init__(self):
@@ -99,7 +122,7 @@ class Harita(QDialog):
         vbox = QVBoxLayout()
 
         self.lbl = QLabel()
-        pixmap = QPixmap("haritason.png")
+        pixmap = QPixmap("harita.jpeg")
         self.lbl.setPixmap(pixmap)
         vbox.addWidget(self.lbl)
         self.setLayout(vbox)
@@ -191,8 +214,11 @@ class AnaEkran(QWidget):
         self.setGeometry(10, 10, 1280, 720)
         
     def initUI(self):
-        self.hikaye = ["Başlamak için öncelikle karakterinizi oluşturun.", "2", "3", "4", "5", "6", "7", "8", "9"]
+        self.hikaye = []
         self.hikayeSayaci = 0
+
+        with open('senaryo.txt','r') as file:
+            self.hikaye = file.readlines()
 
         # Widget alanı
         self.btnStats = QPushButton("İstatistikler")
